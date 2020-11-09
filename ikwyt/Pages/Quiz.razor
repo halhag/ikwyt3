@@ -1,0 +1,119 @@
+﻿@page "/quiz/{name}"
+
+@using IKWYT.Data
+@using Repository
+@inject IQuizService QuizService
+@inject NavigationManager NavigationManager
+
+<h1>Quiz: @QuizModel.Title</h1>
+
+<p />
+<b>Question</b> @QuestionNumber of @QuizModel.Questions.Count
+<b>Your score:</b> @CorrectAnswers
+<p />
+@foreach (var questionPart in QuestionParts)
+{
+    <p>@questionPart</p>
+}
+<form>
+    @foreach (var alternative in @Alternatives)
+    {
+        <input type="radio" name="question1" id="@alternative.Text" value="@alternative.Text" @onchange="SelectionChanged" checked=@(SelectedAnswer.Equals(alternative.Text)) />
+        <label for="@alternative.Text">@alternative.Text</label>
+        <br />
+    }
+    @if (ShowAnswer)
+    {
+        if (AnswerWasCorrect)
+        {
+            <b>Correct answer!</b>
+            <br />
+        }
+        else
+        {
+            <b>Incorrect answer!</b>
+            <br />
+            <label>The correct answer was: <b>@CorrectAnswer</b></label>
+            <br />
+        }
+    }
+    <br />
+    <button type="button" class="btn main-bg" @onclick="@OnSubmit">@ButtonText</button>
+</form>
+
+
+
+
+@code {
+    [Parameter]
+    public string Name { get; set; }
+
+    public Repository.Quiz QuizModel { get; set; }
+    public int QuestionNumber = 0;
+    public int CorrectAnswers { get; set; }
+    public string[] QuestionParts { get; set; }
+    public string SelectedAnswer = string.Empty;
+    public string ButtonText = "Submit";
+    public List<Alternative> Alternatives = new List<Alternative>();
+    public string CorrectAnswer = string.Empty;
+    public bool ShowAnswer = false;
+    public bool AnswerWasCorrect = false;
+
+    private void PrepareQuestion()
+    {
+        QuestionParts = QuizModel.Questions[QuestionNumber].Text.Split(@"\r\n");
+        QuestionParts = QuestionParts.OrderBy(x => x).ToArray();
+        Alternatives = QuizModel.Questions[QuestionNumber].Alternatives.OrderBy(x => x.Text).ToList();
+        CorrectAnswer = Alternatives.Single(x => x.IsCorrect).Text;
+        QuestionNumber++;
+    }
+
+    protected override void OnInitialized()
+    {
+        Name = Name ?? "Oops, missing in action";
+        QuizModel = QuizService.GetQuiz(Name);
+        PrepareQuestion();
+    }
+
+    void SelectionChanged(ChangeEventArgs args)
+    {
+        SelectedAnswer = args.Value.ToString();
+    }
+
+    public void OnSubmit()
+    {
+        if (ButtonText == "Submit")
+        {
+            ShowAnswer = true;
+            if (SelectedAnswer == CorrectAnswer)
+            {
+                AnswerWasCorrect = true;
+                CorrectAnswers++;
+            }
+            else
+            {
+                AnswerWasCorrect = false;
+            }
+            if (QuestionNumber == QuizModel.Questions.Count)
+            {
+                ButtonText = "Finish";
+            }
+            else
+            {
+                ButtonText = "Next";
+            }
+
+        }
+        else if (ButtonText == "Next")
+        {
+            ShowAnswer = false;
+            SelectedAnswer = string.Empty;
+            PrepareQuestion();
+            ButtonText = "Submit";
+        }
+        else if (ButtonText == "Finish")
+        {
+            NavigationManager.NavigateTo("/references/quiz/" + Name + "/score/" + CorrectAnswers.ToString());
+        }
+    }
+}

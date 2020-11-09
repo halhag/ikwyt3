@@ -1,0 +1,52 @@
+﻿@page "/references/quiz/{quiz}/score/{score}"
+
+@using IKWYT.Data
+@using Repository
+@inject IQuizService QuizService
+@inject NavigationManager NavigationManager
+
+<h1>End of @QuizModel.Title</h1>
+
+<br />
+<b>Your score:</b> @Score out of @QuizModel.Questions.Count
+<br />
+<b>Average score:</b> @AverageScore
+<br />
+Want to learn why?  These are the references for the questions in this quiz.  Warning: Some are quite technical and the references will open in a new window or tab.
+<br />
+@foreach (var reference in ReferenceList)
+{
+    <br />
+    <a href="@reference.Url" target="_blank">@reference.Text</a>
+}
+<br />
+<br />
+<button @onclick="@OnSubmit">Back to quizzes</button>
+
+
+
+@code {
+    [Parameter]
+    public string Quiz { get; set; }
+    [Parameter]
+    public string Score { get; set; }
+
+    public Repository.Quiz QuizModel { get; set; }
+    public List<Reference> ReferenceList { get; set; }
+    public string AverageScore { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Quiz = Quiz ?? "Oops, missing in action";
+        QuizService.SaveScore(Quiz, int.Parse(Score));
+        QuizModel = QuizService.GetQuiz(Quiz);
+        ReferenceList = QuizModel.References;
+        var averageScore = QuizService.GetAverageScore(Quiz);
+        AverageScore = averageScore.ToString("0.##");
+    }
+
+    public void OnSubmit()
+    {
+        NavigationManager.NavigateTo("/quizzes");
+    }
+}

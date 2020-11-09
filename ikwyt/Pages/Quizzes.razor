@@ -1,0 +1,46 @@
+﻿@page "/quizzes"
+
+@using IKWYT.Data
+@using Repository
+@inject IQuizService QuizService
+
+<h4><i class="fa fa-bar-chart"></i><span class="main-color">   Quizzes</span></h4>
+
+<p>Pick a quiz to expand your brain!</p>
+
+@if (quizzes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Quiz</th>
+                <th>Category</th>
+                <th>Difficulty</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var quiz in quizzes)
+            {
+                var name = "/quiz/" + @quiz.ExternalReference;
+                <tr>
+                    <td><NavLink href="@name" class="main-color">@quiz.Title</NavLink></td>
+                    <td>@quiz.Category</td>
+                    <td>@quiz.Difficulty</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<QuizMetaData> quizzes;
+
+    protected override void OnInitialized()
+    {
+        quizzes = QuizService.GetQuizMetaData();
+    }
+}
