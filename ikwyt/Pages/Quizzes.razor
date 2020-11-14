@@ -14,7 +14,7 @@
 }
 else
 {
-    <RadzenGrid @ref="grid" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@quizzes" TItem="QuizMetaData">
+    <RadzenGrid @ref="grid" AllowFiltering="true" AllowPaging="true" PageSize="12" AllowSorting="true" Data="@quizzes" TItem="QuizMetaData">
         <Columns>
             <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz" >
                 <Template Context="data">

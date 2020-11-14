@@ -12,6 +12,7 @@
 
 <p />
 <b>Question</b> @QuestionNumber of @QuizModel.Questions.Count
+<br/>
 <b>Your score:</b> @CorrectAnswers
 <p />
 @foreach (var questionPart in QuestionParts)
@@ -24,9 +25,6 @@
         @foreach (var alternative in @Alternatives)
         {
             <RadzenRadioButtonListItem Text = "@alternative.Text" Value = "@alternative.Text" />
-            @*<input type="radio" name="question1" id="@alternative.Text" value="@alternative.Text" @onchange="SelectionChanged" checked=@(SelectedAnswer.Equals(alternative.Text)) />
-            <label for="@alternative.Text">@alternative.Text</label>
-            <br />*@
         }
         </Items>
     </RadzenRadioButtonList>
@@ -73,12 +71,12 @@
     private void PrepareQuestion()
     {
         QuestionParts = QuizModel.Questions[QuestionNumber].Text.Split(@"\r\n");
-        QuestionParts = QuestionParts.OrderBy(x => x).ToArray();
         Alternatives = QuizModel.Questions[QuestionNumber].Alternatives.OrderBy(x => x.Text).ToList();
         CorrectAnswer = Alternatives.Single(x => x.IsCorrect).Text;
         QuestionNumber++;
         if (radioButtonList != null)
         {
+            // This is just to make sure the radio button list refreshes/updates
             var temporaryExtraItem = new RadzenRadioButtonListItem<string> { UniqueID = Guid.NewGuid().ToString() };
             radioButtonList.AddItem(temporaryExtraItem);
             radioButtonList.RemoveItem(temporaryExtraItem);
