@@ -4,7 +4,7 @@
 @using Repository
 @inject IQuizService QuizService
 
-<h4><i class="fa fa-bar-chart"></i><span class="main-color">   Quizzes</span></h4>
+<h1><span class="material-icons">library_books</span>   Quizzes</h1>
 
 <p>Pick a quiz to expand your brain!</p>
 
@@ -14,29 +14,44 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Quiz</th>
-                <th>Category</th>
-                <th>Difficulty</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var quiz in quizzes)
-            {
-                var name = "/quiz/" + @quiz.ExternalReference;
+    <RadzenGrid @ref="grid" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@quizzes" TItem="QuizMetaData">
+        <Columns>
+            <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz" >
+                <Template Context="data">
+                    @{ var name = "/quiz/" + @data.ExternalReference;
+                        <NavLink href="@name">@data.ExternalReference</NavLink>
+                    }
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="QuizMetaData" Property="Category" Title="Category" />
+            <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty"/>
+        </Columns>
+    </RadzenGrid>
+
+    @*<table class="table">
+            <thead>
                 <tr>
-                    <td><NavLink href="@name" class="main-color">@quiz.Title</NavLink></td>
-                    <td>@quiz.Category</td>
-                    <td>@quiz.Difficulty</td>
+                    <th>Quiz</th>
+                    <th>Category</th>
+                    <th>Difficulty</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (var quiz in quizzes)
+                {
+                    var name = "/quiz/" + @quiz.ExternalReference;
+                    <tr>
+                        <td><NavLink href="@name" class="main-color">@quiz.Title</NavLink></td>
+                        <td>@quiz.Category</td>
+                        <td>@quiz.Difficulty</td>
+                    </tr>
+                }
+            </tbody>
+        </table>*@
+    }
 
 @code {
+    RadzenGrid<QuizMetaData> grid;
     private List<QuizMetaData> quizzes;
 
     protected override void OnInitialized()

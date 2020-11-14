@@ -2,10 +2,13 @@
 
 @using IKWYT.Data
 @using Repository
+@using Radzen
+@using Radzen.Blazor
+
 @inject IQuizService QuizService
 @inject NavigationManager NavigationManager
 
-<h1>Quiz: @QuizModel.Title</h1>
+<h1><span class="material-icons">library_add_check</span>   Quiz: @QuizModel.Title</h1>
 
 <p />
 <b>Question</b> @QuestionNumber of @QuizModel.Questions.Count
@@ -16,12 +19,17 @@
     <p>@questionPart</p>
 }
 <form>
-    @foreach (var alternative in @Alternatives)
-    {
-        <input type="radio" name="question1" id="@alternative.Text" value="@alternative.Text" @onchange="SelectionChanged" checked=@(SelectedAnswer.Equals(alternative.Text)) />
-        <label for="@alternative.Text">@alternative.Text</label>
-        <br />
-    }
+    <RadzenRadioButtonList @ref="radioButtonList" @bind-Value="SelectedAnswer" TValue="string" Orientation="Orientation.Vertical" Change="@((args) => Change(args, SelectedAnswer))">
+        <Items>
+        @foreach (var alternative in @Alternatives)
+        {
+            <RadzenRadioButtonListItem Text = "@alternative.Text" Value = "@alternative.Text" />
+            @*<input type="radio" name="question1" id="@alternative.Text" value="@alternative.Text" @onchange="SelectionChanged" checked=@(SelectedAnswer.Equals(alternative.Text)) />
+            <label for="@alternative.Text">@alternative.Text</label>
+            <br />*@
+        }
+        </Items>
+    </RadzenRadioButtonList>
     @if (ShowAnswer)
     {
         if (AnswerWasCorrect)
@@ -38,7 +46,7 @@
         }
     }
     <br />
-    <button type="button" class="btn main-bg" @onclick="@OnSubmit">@ButtonText</button>
+    <RadzenButton Text="@ButtonText" Click="@OnSubmit"/>
 </form>
 
 
@@ -47,6 +55,9 @@
 @code {
     [Parameter]
     public string Name { get; set; }
+    string value;
+
+    RadzenRadioButtonList<string> radioButtonList;
 
     public Repository.Quiz QuizModel { get; set; }
     public int QuestionNumber = 0;
@@ -66,6 +77,12 @@
         Alternatives = QuizModel.Questions[QuestionNumber].Alternatives.OrderBy(x => x.Text).ToList();
         CorrectAnswer = Alternatives.Single(x => x.IsCorrect).Text;
         QuestionNumber++;
+        if (radioButtonList != null)
+        {
+            var temporaryExtraItem = new RadzenRadioButtonListItem<string> { UniqueID = Guid.NewGuid().ToString() };
+            radioButtonList.AddItem(temporaryExtraItem);
+            radioButtonList.RemoveItem(temporaryExtraItem);
+        }
     }
 
     protected override void OnInitialized()
@@ -78,6 +95,11 @@
     void SelectionChanged(ChangeEventArgs args)
     {
         SelectedAnswer = args.Value.ToString();
+    }
+
+    void Change(string value, string name)
+    {
+        SelectedAnswer = name;
     }
 
     public void OnSubmit()

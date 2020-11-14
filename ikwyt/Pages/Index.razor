@@ -1,12 +1,15 @@
 ﻿@page "/"
-
 @*<h1>I Know What You Think</h1>*@
+
+@using Radzen
+@using Radzen.Blazor
+@inject NavigationManager NavigationManager
 
 <div class="heading main-heading centered">
     <h1>I Know What You Think</h1>
     <br />
     <p class="lead">An educational and entertaining quiz app to test your understanding of the human psyche.  These are not normal, boring fact questions.  In this app you will find results from the most fascinating studies and experiments performed on humans (and animals) over the last 100 years.  These questions will test if you really do understand how we, as humans, interact with our world.  It will make you think!</p>
-    <p><a href="quizzes" class="btn btn-primary btn-lg">Expand my mind now !</a></p>
+    <p><RadzenButton Text="Expand my mind now !" Click="@OnExpandMyMind"></RadzenButton></p>
     <br />
     <br />
     <h2>Recommended</h2>
@@ -14,3 +17,11 @@
         <b>'Just wanted to thank you for this app. I love it.'</b><br /><br /> <i>Professor Dan Ariely, author of <a href="http://www.amazon.com/Predictably-Irrational-Revised-Expanded-Edition/dp/0061353248">Predictably Irrational</a></i>
     </p>
 </div>
+
+@code {
+    public void OnExpandMyMind()
+    {
+        NavigationManager.NavigateTo("/quizzes");
+    }
+}
+

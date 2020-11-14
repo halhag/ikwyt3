@@ -2,18 +2,20 @@
 
 @using IKWYT.Data
 @using Repository
+@using Radzen
+@using Radzen.Blazor
+
 @inject IQuizService QuizService
 @inject NavigationManager NavigationManager
 
-<h1>End of @QuizModel.Title</h1>
+<h1><span class="material-icons">assessment</span>End of @QuizModel.Title</h1>
 
 <br />
 <b>Your score:</b> @Score out of @QuizModel.Questions.Count
 <br />
 <b>Average score:</b> @AverageScore
-<br />
-Want to learn why?  These are the references for the questions in this quiz.  Warning: Some are quite technical and the references will open in a new window or tab.
-<br />
+<br /><br />
+            <b>Want to learn more?</b>  
 @foreach (var reference in ReferenceList)
 {
     <br />
@@ -21,7 +23,7 @@ Want to learn why?  These are the references for the questions in this quiz.  Wa
 }
 <br />
 <br />
-<button @onclick="@OnSubmit">Back to quizzes</button>
+<RadzenButton Text="Back to quizzes" Click="@OnSubmit"></RadzenButton>
 
 
 
