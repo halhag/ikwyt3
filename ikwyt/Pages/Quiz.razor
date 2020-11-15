@@ -76,7 +76,7 @@
         QuestionNumber++;
         if (radioButtonList != null)
         {
-            // This is just to make sure the radio button list refreshes/updates
+            // Hack:  This is just to make sure the radio button list refreshes/updates
             var temporaryExtraItem = new RadzenRadioButtonListItem<string> { UniqueID = Guid.NewGuid().ToString() };
             radioButtonList.AddItem(temporaryExtraItem);
             radioButtonList.RemoveItem(temporaryExtraItem);

@@ -19,7 +19,7 @@ else
             <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz" >
                 <Template Context="data">
                     @{ var name = "/quiz/" + @data.ExternalReference;
-                        <NavLink href="@name">@data.ExternalReference</NavLink>
+                        <NavLink href="@name">@data.Title</NavLink>
                     }
                 </Template>
             </RadzenGridColumn>
@@ -27,27 +27,6 @@ else
             <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty"/>
         </Columns>
     </RadzenGrid>
-
-    @*<table class="table">
-            <thead>
-                <tr>
-                    <th>Quiz</th>
-                    <th>Category</th>
-                    <th>Difficulty</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var quiz in quizzes)
-                {
-                    var name = "/quiz/" + @quiz.ExternalReference;
-                    <tr>
-                        <td><NavLink href="@name" class="main-color">@quiz.Title</NavLink></td>
-                        <td>@quiz.Category</td>
-                        <td>@quiz.Difficulty</td>
-                    </tr>
-                }
-            </tbody>
-        </table>*@
     }
 
 @code {
