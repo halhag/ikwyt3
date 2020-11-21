@@ -1,0 +1,43 @@
+﻿@page "/Warmup"
+
+@using IKWYT.Data
+@using Repository
+@inject IQuizService QuizService
+
+<h1><span class="material-icons">flash_on</span>   Warmup</h1>
+<br />
+<p>These quizzes are a great way to get started.  Learn from the greatest psychological experiments ever performed or ponder difficult philosophical questions.</p>
+
+<br />
+<RadzenGrid @ref="grid" AllowFiltering="false" AllowPaging="false" PageSize="12" AllowSorting="false" Data="@quizzes" TItem="QuizMetaData">
+    <Columns>
+        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz">
+            <Template Context="data">
+                @{ var name = "/quiz/" + @data.ExternalReference;
+                    <NavLink href="@name">@data.Title</NavLink>
+                }
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="QuizMetaData" Property="Category" Title="Category" />
+        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" />
+    </Columns>
+</RadzenGrid>
+
+
+
+@code {
+    RadzenGrid<QuizMetaData> grid;
+    private List<QuizMetaData> quizzes;
+
+    protected override void OnInitialized()
+    {
+        var allQuizzes = QuizService.GetQuizMetaData();
+
+        // Assessments
+        quizzes = new List<QuizMetaData>();
+        quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Coca Cola"));
+        quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Easy Warmup"));
+        quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Famous Experiments"));
+        quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Pain Torture Death"));
+    }
+}

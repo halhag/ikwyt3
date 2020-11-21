@@ -4,8 +4,8 @@
 @using Repository
 @inject IQuizService QuizService
 
-<h1><span class="material-icons">library_books</span>   Quizzes</h1>
-
+<h1><span class="material-icons">library_books</span>   All Quizzes</h1>
+<br />
 <p>Pick a quiz to expand your brain!</p>
 
 @if (quizzes == null)
@@ -14,15 +14,7 @@
 }
 else
 {
-    <h3>A Good Place to Start:</h3>
-    <ul>
-        <li><NavLink href="/quiz/Easy Warmup">Easy Warmup</NavLink></li>
-        <li><NavLink href="/quiz/Famous Experiments">Famous Experiments</NavLink></li>
-        <li><NavLink href="/quiz/Coca Cola">Coca Cola</NavLink></li>
-        <li><NavLink href="/quiz/Pain Torture Death">Pain, Torture & Death</NavLink></li>
-    </ul>
-    <br />
-    <h3>All quizzes:</h3>
+    <p>All the quizzes are listed here.  On a larger device you can sort the columns by clicking on the column headers, or even search in a column.</p>
     <RadzenGrid @ref="grid" AllowFiltering="true" AllowPaging="true" PageSize="12" AllowSorting="true" Data="@quizzes" TItem="QuizMetaData">
         <Columns>
             <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz">

@@ -1,0 +1,67 @@
+﻿@page "/DemographyAndSociology"
+
+@using IKWYT.Data
+@using Repository
+@inject IQuizService QuizService
+
+<h1><span class="material-icons">account_balance</span>   Demography and Sociology</h1>
+<br />
+<p>These quizzes were made in the early 2010s.  Keep in mind that the answers might have been different if they had been asked today.</p>
+
+<br />
+<h3>Demography</h3>
+<RadzenGrid @ref="gridDemography" AllowFiltering="false" AllowPaging="false" PageSize="12" AllowSorting="false" Data="@quizzesDemography" TItem="QuizMetaData">
+    <Columns>
+        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz">
+            <Template Context="data">
+                @{ var name = "/quiz/" + @data.ExternalReference;
+                    <NavLink href="@name">@data.Title</NavLink>
+                }
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" />
+    </Columns>
+</RadzenGrid>
+
+<br />
+<h3>Sociology</h3>
+<p>Note that the quiz <b>Consumerism</b> was based on industry sponsored research.  Assume that it would not have been published had it not shown what they wanted it to show.</p>
+<RadzenGrid @ref="gridSociology" AllowFiltering="false" AllowPaging="false" PageSize="12" AllowSorting="false" Data="@quizzesSociology" TItem="QuizMetaData">
+    <Columns>
+        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz">
+            <Template Context="data">
+                @{ var name = "/quiz/" + @data.ExternalReference;
+                    <NavLink href="@name">@data.Title</NavLink>
+                }
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" />
+    </Columns>
+</RadzenGrid>
+
+
+
+@code {
+    RadzenGrid<QuizMetaData> gridDemography, gridSociology;
+    private List<QuizMetaData> quizzesDemography, quizzesSociology;
+
+    protected override void OnInitialized()
+    {
+        var allQuizzes = QuizService.GetQuizMetaData();
+
+        // Demography
+        quizzesDemography = new List<QuizMetaData>();
+        quizzesDemography.Add(allQuizzes.Single(x => x.ExternalReference == "Comparing countries"));
+        quizzesDemography.Add(allQuizzes.Single(x => x.ExternalReference == "Corruption"));
+        quizzesDemography.Add(allQuizzes.Single(x => x.ExternalReference == "Random Demographics"));
+
+        // Sociology
+        quizzesSociology = new List<QuizMetaData>();
+        quizzesSociology.Add(allQuizzes.Single(x => x.ExternalReference == "American Social Studies"));
+        quizzesSociology.Add(allQuizzes.Single(x => x.ExternalReference == "Consumerism"));
+        quizzesSociology.Add(allQuizzes.Single(x => x.ExternalReference == "Future"));
+        quizzesSociology.Add(allQuizzes.Single(x => x.ExternalReference == "US Trends"));
+        quizzesSociology.Add(allQuizzes.Single(x => x.ExternalReference == "US Trends II"));
+        quizzesSociology.Add(allQuizzes.Single(x => x.ExternalReference == "School Life II"));
+    }
+}

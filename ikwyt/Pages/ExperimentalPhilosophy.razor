@@ -1,0 +1,40 @@
+﻿@page "/ExperimentalPhilosophy"
+
+@using IKWYT.Data
+@using Repository
+@inject IQuizService QuizService
+
+<h1><span class="material-icons">batch_prediction</span>   Experimental Philosophy</h1>
+<br />
+<p>Experimental philosophy is a new sub field of philosophy trying to put numbers on philosophical ideas.  Philosophers assume certain axioms, what they base their ideas on, but what if those can be tested?</p>
+
+<br />
+<RadzenGrid @ref="grid" AllowFiltering="false" AllowPaging="false" PageSize="12" AllowSorting="false" Data="@quizzes" TItem="QuizMetaData">
+    <Columns>
+        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz">
+            <Template Context="data">
+                @{ var name = "/quiz/" + @data.ExternalReference;
+                    <NavLink href="@name">@data.Title</NavLink>
+                }
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" />
+    </Columns>
+</RadzenGrid>
+
+
+
+@code {
+    RadzenGrid<QuizMetaData> grid;
+    private List<QuizMetaData> quizzes;
+
+    protected override void OnInitialized()
+    {
+        var allQuizzes = QuizService.GetQuizMetaData();
+
+        // Assessments
+        quizzes = new List<QuizMetaData>();
+        quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Pain Torture Death"));
+        quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Tough Moral Choices"));
+    }
+}
