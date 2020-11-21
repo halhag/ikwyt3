@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Repository
 {
     public class MetaQuiz
     {
-        public MetaQuiz()
-        {
-            SimilarQuizzes = new List<MetaRecommendation>();
-        }
-
         public string ExternalReference { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -19,6 +13,5 @@ namespace Repository
         public int NumTimesPlayed { get; set; }
         public int TotalScore { get; set; }
         public DateTime LastPlayed { get; set; }
-        public List<MetaRecommendation> SimilarQuizzes { get; set; }
     }
 }
