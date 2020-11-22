@@ -12,56 +12,84 @@
 <h3>Assessments</h3>
 <RadzenGrid @ref="gridAssessments" AllowFiltering="false" AllowPaging="false" PageSize="12" AllowSorting="false" Data="@quizzesAssessments" TItem="QuizMetaData">
     <Columns>
-        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz">
+        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz" Width="20%">
             <Template Context="data">
                 @{ var name = "/quiz/" + @data.ExternalReference;
                     <NavLink href="@name">@data.Title</NavLink>
                 }
             </Template>
         </RadzenGridColumn>
-        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" />
+        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" Width="20%"/>
+        <RadzenGridColumn TItem="QuizMetaData" Property="Description" Title="Description">
+            <Template Context="data">
+                @{
+                    <span style="white-space:normal">@data.Description</span>
+                }
+            </Template>
+        </RadzenGridColumn>
     </Columns>
 </RadzenGrid>
 <br />
 <h3>Groups and genders</h3>
 <RadzenGrid @ref="gridGroupsAndGenders" AllowFiltering="false" AllowPaging="false" PageSize="12" AllowSorting="false" Data="@quizzesGroupsAndGenders" TItem="QuizMetaData">
     <Columns>
-        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz">
+        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz" Width="20%">
             <Template Context="data">
                 @{ var name = "/quiz/" + @data.ExternalReference;
                     <NavLink href="@name">@data.Title</NavLink>
                 }
             </Template>
         </RadzenGridColumn>
-        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" />
+        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" Width="20%"/>
+        <RadzenGridColumn TItem="QuizMetaData" Property="Description" Title="Description">
+            <Template Context="data">
+                @{
+                    <span style="white-space:normal">@data.Description</span>
+                }
+            </Template>
+        </RadzenGridColumn>
     </Columns>
 </RadzenGrid>
 <br />
 <h3>Dishonesty</h3>
 <RadzenGrid @ref="gridDishonesty" AllowFiltering="false" AllowPaging="false" PageSize="12" AllowSorting="false" Data="@quizzesDishonesty" TItem="QuizMetaData">
     <Columns>
-        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz">
+        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz" Width="20%">
             <Template Context="data">
                 @{ var name = "/quiz/" + @data.ExternalReference;
                     <NavLink href="@name">@data.Title</NavLink>
                 }
             </Template>
         </RadzenGridColumn>
-        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" />
+        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" Width="20%"/>
+        <RadzenGridColumn TItem="QuizMetaData" Property="Description" Title="Description">
+            <Template Context="data">
+                @{
+                    <span style="white-space:normal">@data.Description</span>
+                }
+            </Template>
+        </RadzenGridColumn>
     </Columns>
 </RadzenGrid>
 <br />
 <h3>Others</h3>
 <RadzenGrid @ref="gridOthers" AllowFiltering="false" AllowPaging="false" PageSize="12" AllowSorting="false" Data="@quizzesOthers" TItem="QuizMetaData">
     <Columns>
-        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz">
+        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz" Width="20%">
             <Template Context="data">
                 @{ var name = "/quiz/" + @data.ExternalReference;
                     <NavLink href="@name">@data.Title</NavLink>
                 }
             </Template>
         </RadzenGridColumn>
-        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" />
+        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" Width="20%"/>
+        <RadzenGridColumn TItem="QuizMetaData" Property="Description" Title="Description">
+            <Template Context="data">
+                @{
+                    <span style="white-space:normal">@data.Description</span>
+                }
+            </Template>
+        </RadzenGridColumn>
     </Columns>
 </RadzenGrid>
 

@@ -18,15 +18,22 @@ else
     <p>All the quizzes are listed here.  On a larger device you can sort the columns by clicking on the column headers, or even search in a column.</p>
     <RadzenGrid @ref="grid" AllowFiltering="true" AllowPaging="true" PageSize="12" AllowSorting="true" Data="@quizzes" TItem="QuizMetaData">
         <Columns>
-            <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz">
+            <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz" Width="20%">
                 <Template Context="data">
                     @{ var name = "/quiz/" + @data.ExternalReference;
                         <NavLink href="@name">@data.Title</NavLink>
                     }
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="QuizMetaData" Property="Category" Title="Category" />
-            <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" />
+            <RadzenGridColumn TItem="QuizMetaData" Property="Category" Title="Category" Width="20%"/>
+            <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" Width="20%"/>
+            <RadzenGridColumn TItem="QuizMetaData" Property="Description" Title="Description">
+                <Template Context="data">
+                    @{
+                        <span style="white-space:normal">@data.Description</span>
+                    }
+                </Template>
+            </RadzenGridColumn>
         </Columns>
     </RadzenGrid>
 }

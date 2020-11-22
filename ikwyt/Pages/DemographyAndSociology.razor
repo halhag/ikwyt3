@@ -12,14 +12,21 @@
 <h3>Demography</h3>
 <RadzenGrid @ref="gridDemography" AllowFiltering="false" AllowPaging="false" PageSize="12" AllowSorting="false" Data="@quizzesDemography" TItem="QuizMetaData">
     <Columns>
-        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz">
+        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz" Width="20%">
             <Template Context="data">
                 @{ var name = "/quiz/" + @data.ExternalReference;
                     <NavLink href="@name">@data.Title</NavLink>
                 }
             </Template>
         </RadzenGridColumn>
-        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" />
+        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" Width="20%"/>
+        <RadzenGridColumn TItem="QuizMetaData" Property="Description" Title="Description">
+            <Template Context="data">
+                @{
+                    <span style="white-space:normal">@data.Description</span>
+                }
+            </Template>
+        </RadzenGridColumn>
     </Columns>
 </RadzenGrid>
 
@@ -28,14 +35,21 @@
 <p>Note that the quiz <b>Consumerism</b> was based on industry sponsored research.  Assume that it would not have been published had it not shown what they wanted it to show.</p>
 <RadzenGrid @ref="gridSociology" AllowFiltering="false" AllowPaging="false" PageSize="12" AllowSorting="false" Data="@quizzesSociology" TItem="QuizMetaData">
     <Columns>
-        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz">
+        <RadzenGridColumn TItem="QuizMetaData" Property="ExternalReference" Title="Quiz" Width="20%">
             <Template Context="data">
                 @{ var name = "/quiz/" + @data.ExternalReference;
                     <NavLink href="@name">@data.Title</NavLink>
                 }
             </Template>
         </RadzenGridColumn>
-        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" />
+        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" Width="20%"/>
+        <RadzenGridColumn TItem="QuizMetaData" Property="Description" Title="Description">
+            <Template Context="data">
+                @{
+                    <span style="white-space:normal">@data.Description</span>
+                }
+            </Template>
+        </RadzenGridColumn>
     </Columns>
 </RadzenGrid>
 

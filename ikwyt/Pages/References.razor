@@ -23,7 +23,7 @@
 }
 <br />
 <br />
-<RadzenButton Text="Back to quizzes" Click="@OnSubmit"></RadzenButton>
+<RadzenButton Text="More quizzes, please!" Click="@OnSubmit"></RadzenButton>
 
 
 
@@ -49,6 +49,41 @@
 
     public void OnSubmit()
     {
+        if (QuizModel.Category == "Psychology")
+        {
+            NavigationManager.NavigateTo("/Psychology");
+            return;
+        }
+        if (QuizModel.Category == "Sociology"  || QuizModel.Category == "Demography")
+        {
+            NavigationManager.NavigateTo("/DemographyAndSociology");
+            return;
+        }
+        if (QuizModel.Category == "Behavioral Economics")
+        {
+            NavigationManager.NavigateTo("/BehavioralEconomics");
+            return;
+        }
+        if (QuizModel.Category == "Biology")
+        {
+            NavigationManager.NavigateTo("/Biology");
+            return;
+        }
+        if (QuizModel.Category == "Experimental Philosophy")
+        {
+            NavigationManager.NavigateTo("/ExperimentalPhilosophy");
+            return;
+        }
+        if (QuizModel.Category == "Mix")
+        {
+            NavigationManager.NavigateTo("/Mix");
+            return;
+        }
+        if (QuizModel.Category == "Warmup")
+        {
+            NavigationManager.NavigateTo("/Warmup");
+            return;
+        }
         NavigationManager.NavigateTo("/quizzes");
     }
 }
