@@ -14,6 +14,7 @@
 }
 else
 {
+    @*<RadzenButton Text="SaveMeta" Click="@OnSubmit" />*@
     <p>All the quizzes are listed here.  On a larger device you can sort the columns by clicking on the column headers, or even search in a column.</p>
     <RadzenGrid @ref="grid" AllowFiltering="true" AllowPaging="true" PageSize="12" AllowSorting="true" Data="@quizzes" TItem="QuizMetaData">
         <Columns>
@@ -38,4 +39,9 @@ else
     {
         quizzes = QuizService.GetQuizMetaData();
     }
+
+    //public void OnSubmit()
+    //{
+    //    QuizService.SaveMeta();
+    //}
 }

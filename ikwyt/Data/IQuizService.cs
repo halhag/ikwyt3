@@ -9,5 +9,6 @@ namespace IKWYT.Data
         Quiz GetQuiz(string externalReference);
         double GetAverageScore(string externalReference);
         void SaveScore(string externalReference, int score);
+        void SaveMeta();
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace IKWYT.Data
+﻿using System;
+
+namespace IKWYT.Data
 {
     public class QuizMetaData
     {
@@ -8,5 +10,7 @@
         public string Difficulty { get; set; }
         public string Category { get; set; }
         public int DifficultyValue { get; set; }
+        public string Description { get; set; }
+        public DateTime LastPlayed { get; set; }
     }
 }
