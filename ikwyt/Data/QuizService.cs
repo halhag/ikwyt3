@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Meta;
 using Newtonsoft.Json;
 using Repository;
@@ -17,6 +16,7 @@ namespace IKWYT.Data
             _database = database;
         }
 
+        // Only for adding new data - comment in button in Quizzes.razor and code for OnChange there to make it work locally
         public void SaveMeta()
         {
             var metaQuizzes = new MetaQuizzes();
