@@ -12,5 +12,7 @@ namespace IKWYT.Data
         public int DifficultyValue { get; set; }
         public string Description { get; set; }
         public DateTime LastPlayed { get; set; }
+        public int NumTimesPlayed { get; set; }
+        public double UnderlyingDifficulty { get; set; }
     }
 }

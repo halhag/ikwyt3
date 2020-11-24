@@ -62,7 +62,7 @@ body .banner-content-area {
         background:url(../images/banner-bg.jpg) no-repeat center;
         background-size: cover;
     }
-    .banner-content-area h1 {
+    .banner-content-area h2 {
         font-size: 50px;
         color: #FFF;
         margin: 0;
@@ -94,9 +94,9 @@ body .banner-content-area {
         }
 
 .footer-txt {
-    background: #292929;
+    background: #479cc8;
     padding: 20px;
-    margin-top:20px;
+    margin-top: 20px;
 }
 
 .footer-txt .copyrights{color:#FFF;}
@@ -108,7 +108,6 @@ body .banner-content-area {
 }
 
     .main .content h1 span.material-icons{display:none;}
-
 
     body .ui-datatable {
         border: solid 1px #e2e2e2;

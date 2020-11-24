@@ -42,17 +42,20 @@ namespace IKWYT.Data
             var metaData = new List<QuizMetaData>();
             foreach (var quiz in quizzes)
             {
+                var difficulty = CalculateDifficulty(quiz);
                 var quizMetaData = new QuizMetaData
                 {
                     Category = quiz.Category, //GetCategoryAsReadableText(quiz.Category),
                     NumQuestions = quiz.NumQuestions,
-                    Difficulty = CalculateDifficulty(quiz),
+                    Difficulty = difficulty.Name,
+                    DifficultyValue = difficulty.Score,
+                    UnderlyingDifficulty = difficulty.UnderlyingValue,
                     ExternalReference = quiz.ExternalReference,
                     Title = quiz.Title,
                     Description = quiz.Description,
-                    LastPlayed = quiz.LastPlayed
+                    LastPlayed = quiz.LastPlayed,
+                    NumTimesPlayed = quiz.NumTimesPlayed
                 };
-                quizMetaData.DifficultyValue = CalculateDifficultyValue(quizMetaData.Difficulty);
                 metaData.Add(quizMetaData);
             }
 
@@ -106,24 +109,7 @@ namespace IKWYT.Data
             return quizzes;
         }
 
-        private int CalculateDifficultyValue(string difficulty)
-        {
-            if (difficulty == "Very easy")
-                return 1;
-            if (difficulty == "Easy")
-                return 2;
-            if (difficulty == "Medium")
-                return 3;
-            if (difficulty == "Hard")
-                return 5;
-            if (difficulty == "Very hard")
-                return 6;
-
-            // default 
-            return 4;
-        }
-
-        private string CalculateDifficulty(MetaQuiz quiz)
+        private Difficulty CalculateDifficulty(MetaQuiz quiz)
         {
             double averageScore;
             if (quiz.NumTimesPlayed == 0)
@@ -136,25 +122,55 @@ namespace IKWYT.Data
             var difficulty = averageScore / quiz.NumQuestions;
             if (difficulty < 0.25)
             {
-                return "Very hard";
+                return new Difficulty
+                {
+                    Name = "Very hard",
+                    Score = 6,
+                    UnderlyingValue = difficulty
+                };
             }
             if (difficulty >= 0.25 && difficulty < 0.4)
             {
-                return "Hard";
+                return new Difficulty 
+                {
+                    Name = "Hard",
+                    Score = 5,
+                    UnderlyingValue = difficulty
+                };
             }
             if (difficulty >= 0.4 && difficulty < 0.6)
             {
-                return "Medium";
+                return new Difficulty
+                {
+                    Name = "Medium",
+                    Score = 3,
+                    UnderlyingValue = difficulty
+                };
             }
             if (difficulty >= 0.6 && difficulty < 0.75)
             {
-                return "Easy";
+                return new Difficulty
+                {
+                    Name = "Easy",
+                    Score = 2,
+                    UnderlyingValue = difficulty
+                };
             }
             if (difficulty >= 0.75)
             {
-                return "Very easy";
+                return new Difficulty
+                {
+                    Name = "Very easy",
+                    Score = 1,
+                    UnderlyingValue = difficulty
+                };
             }
-            return "Not calculated";
+            return new Difficulty
+            {
+                Name = "Not calculated",
+                Score = 4,
+                UnderlyingValue = difficulty
+            };
         }
 
         //private string GetCategoryAsReadableText(string category)
