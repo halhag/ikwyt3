@@ -1,0 +1,132 @@
+/*New css*/
+
+body{background:#FFF;}
+body h2{font-size:32px; font-weight:700;}
+body p {line-height: 24px; color: #5d5d5d;}
+
+.navbar-dark .navbar-toggler{outline:none;}
+
+body .sidebar {
+    background: #efefef;
+}
+
+body .sidebar .top-row {
+            background-color: rgb(71 156 200);
+        }
+
+body .panel-menu {
+        background-color: #efefef;
+    }
+body .panel-menu .navigation-item {
+    border-bottom: solid 1px #dcdcdc;
+}
+
+body .panel-menu .navigation-item a.navigation-item-link {
+    color: #000;
+}
+
+body .panel-menu .navigation-item-wrapper:hover {
+        background-color: #eaeaea;
+    }
+
+.panel-menu .navigation-item-wrapper-active {
+    background-color: #e2e2e2;
+}
+
+body .panel-menu .navigation-item-wrapper-active:before {
+        top: -1px;
+        bottom: -1px;
+        background-color: #479cc8;
+    }
+body .panel-menu .navigation-item-icon {color: #6b6b6b;}
+
+
+body .banner-content-area {
+        background: #027d8d;
+        margin: -20px -24px 20px -32px;
+        padding: 50px 40px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .banner-content-area:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        opacity: 0.2;
+        background:url(../images/banner-bg.jpg) no-repeat center;
+        background-size: cover;
+    }
+    .banner-content-area h1 {
+        font-size: 50px;
+        color: #FFF;
+        margin: 0;
+        padding-bottom: 20px;
+    }
+    .banner-content-area p {
+        color: #FFF;
+        padding-bottom: 30px;
+        margin: 0;
+        font-size: 20px;
+        line-height: 28px;
+    }
+    .banner-content-area .ui-button.btn-primary {
+        padding: 7px 30px;
+        height: auto;
+        line-height: normal;
+        background: #fff;
+        color: #027d8d;
+        font-size: 17px;
+        text-transform: uppercase;
+        font-weight: 600;
+        outline: none;
+        box-shadow: none;
+    }
+
+        .banner-content-area .ui-button.btn-primary:hover {
+            background: #33a6b5;
+            color: #ffffff;
+        }
+
+.footer-txt {
+    background: #292929;
+    padding: 20px;
+    margin-top:20px;
+}
+
+.footer-txt .copyrights{color:#FFF;}
+
+.main .content h1 {
+    font-size: 32px;
+    line-height: normal;
+    color: #479cc8;
+}
+
+    .main .content h1 span.material-icons{display:none;}
+
+
+    body .ui-datatable {
+        border: solid 1px #e2e2e2;
+    }
+body .ui-datatable-odd > td {
+    background-color: #f9f9f9;
+}
+body .ui-datatable-data td {
+    padding: 0.7rem 0.625rem 0.7rem 0.625rem;
+    border-bottom: solid 1px #e2e2e2;
+}
+body .ui-datatable-data td:not(:last-child) {
+        border-right: solid 1px #e2e2e2;
+    }
+
+@media screen and (max-width:768px) {
+
+    body .panel-menu .navigation-item-wrapper-active:before {
+        display: none;
+    }
+}

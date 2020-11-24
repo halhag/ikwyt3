@@ -4,17 +4,38 @@
 @using Radzen.Blazor
 @inject NavigationManager NavigationManager
 
-<div class="heading main-heading centered">
-    <h1>I Know What You Think</h1>
-    <br />
-    <p class="lead">An educational and entertaining quiz app to test your understanding of the human psyche.  These are not normal, boring fact questions.  In this app you will find results from the most fascinating studies and experiments performed on humans (and animals) over the last 100 years.  These questions will test if you really do understand how we, as humans, interact with our world.  It will make you think!</p>
-    <p><RadzenButton Text="Expand my mind now !" Click="@OnExpandMyMind"></RadzenButton></p>
-    <br />
-    <br />
-    <h2>Recommended:</h2>
-    <p>
-        <h3><b>'Just wanted to thank you for this app. I love it.'</b></h3><br /> <i>Professor Dan Ariely, author of <a href="http://www.amazon.com/Predictably-Irrational-Revised-Expanded-Edition/dp/0061353248">Predictably Irrational</a></i>
-    </p>
+
+<div class="banner-content-area">
+    <div class="row justify-content-center text-center">
+        <div class="col-xs-12 col-sm-8">
+            <h1>I Know What You Think</h1>
+            <p>An educational and entertaining quiz app to test your understanding of the human psyche. These are not normal, boring fact questions. In this app you will find results from the most fascinating studies and experiments performed on humans  (and animals) over the last 100 years.</p>
+            <div><RadzenButton Text="Expand my mind now !" Click="@OnExpandMyMind"></RadzenButton></div>
+        </div>
+
+    </div>
+</div>
+
+<div class="heading main-heading pt-3">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <h2>Welcome To I Know What You Think</h2>
+            <p>
+                An educational and entertaining quiz app to test your understanding of the human psyche.  These are not normal, boring fact questions.  In this app you will find results from the most fascinating studies and experiments performed on humans (and animals) over the last 100 years.
+                <br />
+                <br />
+                These questions will test if you really do understand how we, as humans, interact with our world.  It will make you think!
+            </p>
+
+            <!--<p><RadzenButton Text="Expand my mind now !" Click="@OnExpandMyMind"></RadzenButton></p>
+
+                    <h2 class="pt-3">Recommended:</h2>
+            <p>  <h3><b>'Just wanted to thank you for this app. I love it.'</b></h3><br /> <i>Professor Dan Ariely, author of <a href="http://www.amazon.com/Predictably-Irrational-Revised-Expanded-Edition/dp/0061353248">Predictably Irrational</a></i>
+            </p>-->
+        </div>
+    </div>
+
+
 </div>
 
 @code {
