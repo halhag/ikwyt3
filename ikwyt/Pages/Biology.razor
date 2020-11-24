@@ -18,17 +18,18 @@
                 }
             </Template>
         </RadzenGridColumn>
-        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" Width="20%"/>
+        <RadzenGridColumn TItem="QuizMetaData" Property="Difficulty" Title="Difficulty" Width="20%" />
         <RadzenGridColumn TItem="QuizMetaData" Property="Description" Title="Description">
             <Template Context="data">
-                @{ 
+                @{
                     <span style="white-space:normal">@data.Description</span>
                 }
             </Template>
         </RadzenGridColumn>
     </Columns>
 </RadzenGrid>
-
+<br />
+<br />
 
 
 @code {

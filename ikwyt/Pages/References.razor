@@ -14,8 +14,9 @@
 <b>Your score:</b> @Score out of @QuizModel.Questions.Count
 <br />
 <b>Average score:</b> @AverageScore
-<br /><br />
-            <b>Want to learn more?</b>  
+<br />
+<br />
+<b>Want to learn more?</b>
 @foreach (var reference in ReferenceList)
 {
     <br />
@@ -24,7 +25,8 @@
 <br />
 <br />
 <RadzenButton Text="More quizzes, please!" Click="@OnSubmit"></RadzenButton>
-
+<br />
+<br />
 
 
 @code {
@@ -54,7 +56,7 @@
             NavigationManager.NavigateTo("/Psychology");
             return;
         }
-        if (QuizModel.Category == "Sociology"  || QuizModel.Category == "Demography")
+        if (QuizModel.Category == "Sociology" || QuizModel.Category == "Demography")
         {
             NavigationManager.NavigateTo("/DemographyAndSociology");
             return;
