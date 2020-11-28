@@ -4,15 +4,18 @@
 @using Repository
 @using Radzen
 @using Radzen.Blazor
+@using Toolbelt.Blazor.HeadElement
 
 @inject IQuizService QuizService
 @inject NavigationManager NavigationManager
+
+<Title>IKWYT - @QuizModel.Title</Title>
 
 <h1><span class="material-icons">library_add_check</span>   Quiz: @QuizModel.Title</h1>
 
 <p />
 <b>Question</b> @QuestionNumber of @QuizModel.Questions.Count
-<br/>
+<br />
 <b>Your score:</b> @CorrectAnswers
 <p />
 @foreach (var questionPart in QuestionParts)
@@ -22,10 +25,10 @@
 <form>
     <RadzenRadioButtonList @ref="radioButtonList" @bind-Value="SelectedAnswer" TValue="string" Orientation="Orientation.Vertical" Change="@((args) => Change(args, SelectedAnswer))">
         <Items>
-        @foreach (var alternative in @Alternatives)
-        {
-            <RadzenRadioButtonListItem Text = "@alternative.Text" Value = "@alternative.Text" />
-        }
+            @foreach (var alternative in @Alternatives)
+            {
+                <RadzenRadioButtonListItem Text="@alternative.Text" Value="@alternative.Text" />
+            }
         </Items>
     </RadzenRadioButtonList>
     @if (ShowAnswer)
@@ -44,9 +47,9 @@
         }
     }
     <br />
-    <RadzenButton Text="@ButtonText" Click="@OnSubmit"/>
+    <RadzenButton Text="@ButtonText" Click="@OnSubmit" />
 </form>
-<br/>
+<br />
 <br />
 
 

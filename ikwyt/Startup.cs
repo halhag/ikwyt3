@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using IKWYT.Data;
 using Repository;
+using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 namespace IKWYT
 {
@@ -29,6 +30,7 @@ namespace IKWYT
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddHeadElementHelper();
 
             string connectionString = Configuration.GetConnectionString("Database");
             if (!string.IsNullOrEmpty(connectionString))

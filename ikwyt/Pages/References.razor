@@ -4,9 +4,12 @@
 @using Repository
 @using Radzen
 @using Radzen.Blazor
+@using Toolbelt.Blazor.HeadElement
 
 @inject IQuizService QuizService
 @inject NavigationManager NavigationManager
+
+<Title>IKWYT - @QuizModel.Title</Title>
 
 <h1><span class="material-icons">assessment</span>End of @QuizModel.Title</h1>
 
@@ -27,6 +30,10 @@
 <RadzenButton Text="More quizzes, please!" Click="@OnSubmit"></RadzenButton>
 <br />
 <br />
+@*<RadzenButton Text="Share on Facebook" Icon="facebook" Click="@OnShareWithFacebook"></RadzenButton>
+    <br />
+    <br />*@
+
 
 
 @code {
@@ -47,6 +54,12 @@
         ReferenceList = QuizModel.References;
         var averageScore = QuizService.GetAverageScore(Quiz);
         AverageScore = averageScore.ToString("0.##");
+    }
+
+    public void OnShareWithFacebook()
+    {
+        var url = @"https://www.facebook.com/sharer/sharer.php?u=https://ikwyt3.azurewebsites.net/" + Quiz + @"&src=sdkpreparse";
+        NavigationManager.NavigateTo(url);
     }
 
     public void OnSubmit()

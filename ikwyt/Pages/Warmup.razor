@@ -2,7 +2,12 @@
 
 @using IKWYT.Data
 @using Repository
+@using Toolbelt.Blazor.HeadElement
 @inject IQuizService QuizService
+
+@inject NavigationManager NavigationManager
+
+<Title>IKWYT - Warmup</Title>
 
 <h1><span class="material-icons">flash_on</span>   Warmup</h1>
 <br />
@@ -31,6 +36,9 @@
 </RadzenGrid>
 <br />
 <br />
+@*<RadzenButton Text="Share" Icon="alarm" Style="color: white; background-color: #3b5998;" Click="@OnShareWithFacebook"></RadzenButton>
+<br />
+<br />*@
 
 
 @code {
@@ -48,4 +56,10 @@
         quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Famous Experiments"));
         quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Pain Torture Death"));
     }
+
+    //public void OnShareWithFacebook()
+    //{
+    //    var url = @"https://www.facebook.com/sharer/sharer.php?u=https://ikwyt3.azurewebsites.net/warmup&src=sdkpreparse";
+    //    NavigationManager.NavigateTo(url);
+    //}
 }
