@@ -135,6 +135,7 @@
         }
         else if (ButtonText == "Finish")
         {
+            QuizService.SaveScore(QuizModel.Id, CorrectAnswers);
             NavigationManager.NavigateTo("/references/quiz/" + Name + "/score/" + CorrectAnswers.ToString());
         }
     }

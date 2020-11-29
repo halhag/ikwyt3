@@ -49,7 +49,6 @@
     protected override void OnInitialized()
     {
         Quiz = Quiz ?? "Oops, missing in action";
-        QuizService.SaveScore(Quiz, int.Parse(Score));
         QuizModel = QuizService.GetQuiz(Quiz);
         ReferenceList = QuizModel.References;
         var averageScore = QuizService.GetAverageScore(Quiz);
