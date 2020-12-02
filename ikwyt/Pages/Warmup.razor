@@ -36,10 +36,6 @@
 </RadzenGrid>
 <br />
 <br />
-@*<RadzenButton Text="Share" Icon="facebook" Style="color: white; background-color: #3b5998;" Click="@OnShareWithFacebook"></RadzenButton>
-<br />
-<br />
-https://forum.radzen.com/t/facebook-share-button/5832*@
 
 
 @code {
@@ -57,10 +53,4 @@ https://forum.radzen.com/t/facebook-share-button/5832*@
         quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Famous Experiments"));
         quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Pain Torture Death"));
     }
-
-    //public void OnShareWithFacebook()
-    //{
-    //    var url = @"https://www.facebook.com/sharer/sharer.php?u=https://ikwyt3.azurewebsites.net/warmup&src=sdkpreparse";
-    //    NavigationManager.NavigateTo(url);
-    //}
 }

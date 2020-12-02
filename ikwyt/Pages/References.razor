@@ -30,9 +30,9 @@
 <RadzenButton Text="More quizzes, please!" Click="@OnSubmit"></RadzenButton>
 <br />
 <br />
-@*<RadzenButton Text="Share on Facebook" Icon="facebook" Click="@OnShareWithFacebook"></RadzenButton>
+<RadzenButton Text="Share" Icon="facebook" Style="color: white; background-color: #3b5998;" Click="@OnShareWithFacebook" />
     <br />
-    <br />*@
+    <br />
 
 
 
@@ -57,47 +57,45 @@
 
     public void OnShareWithFacebook()
     {
-        var url = @"https://www.facebook.com/sharer/sharer.php?u=https://ikwyt3.azurewebsites.net/" + Quiz + @"&src=sdkpreparse";
+        var url = @"https://www.facebook.com/sharer/sharer.php?u=https://ikwyt3.azurewebsites.net/" + GetNavigationCategory() + @"&src=sdkpreparse";
         NavigationManager.NavigateTo(url);
     }
 
     public void OnSubmit()
     {
+        NavigationManager.NavigateTo("/" + GetNavigationCategory());
+    }
+
+    private string GetNavigationCategory()
+    {
         if (QuizModel.Category == "Psychology")
         {
-            NavigationManager.NavigateTo("/Psychology");
-            return;
+            return "Psychology";
         }
         if (QuizModel.Category == "Sociology" || QuizModel.Category == "Demography")
         {
-            NavigationManager.NavigateTo("/DemographyAndSociology");
-            return;
+            return "DemographyAndSociology";
         }
         if (QuizModel.Category == "Behavioral Economics")
         {
-            NavigationManager.NavigateTo("/BehavioralEconomics");
-            return;
+            return "BehavioralEconomics";
         }
         if (QuizModel.Category == "Biology")
         {
-            NavigationManager.NavigateTo("/Biology");
-            return;
+            return "Biology";
         }
         if (QuizModel.Category == "Experimental Philosophy")
         {
-            NavigationManager.NavigateTo("/ExperimentalPhilosophy");
-            return;
+            return "ExperimentalPhilosophy";
         }
         if (QuizModel.Category == "Mix")
         {
-            NavigationManager.NavigateTo("/Mix");
-            return;
+            return "Mix";
         }
         if (QuizModel.Category == "Warmup")
         {
-            NavigationManager.NavigateTo("/Warmup");
-            return;
+            return "Warmup";
         }
-        NavigationManager.NavigateTo("/quizzes");
+        return "quizzes";
     }
 }
