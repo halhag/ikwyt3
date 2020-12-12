@@ -1,0 +1,108 @@
+﻿@page "/About"
+
+@using IKWYT.Data
+@using Toolbelt.Blazor.HeadElement
+@inject IQuizService QuizService
+
+@inject NavigationManager NavigationManager
+
+<Title>IKWYT - About</Title>
+
+<h1><span class="material-icons">info</span>   About</h1>
+<br />
+<p>These quizzes were made for an iPhone app back in 2011-13.  The app was relatively popular and was downloaded in more than a hundred countries, but, since this was just a hobby project, maintenance was not kept up and the app was eventually withdrawn from the App Store when it could not keep up with changing requirements.  This new web site was made during the Corona crisis of 2020.</p>
+<p>If you are still reading, below is some more useless information made visually appealing.</p>
+<br />
+<h3>Last played</h3>
+<RadzenChart>
+    <RadzenLineSeries Smooth="false" Data="@lastPlayed" Title="Last played" CategoryProperty="Date" LineType="LineType.Dotted" ValueProperty="Count">
+        <TooltipTemplate Context="data">
+            <div>
+                <span>@data.Name</span> has been played @data.Count times and was last played @data.Date
+            </div>
+        </TooltipTemplate>
+    </RadzenLineSeries>
+    <RadzenCategoryAxis Padding="20" />
+    <RadzenValueAxis>
+        <RadzenGridLines Visible="true" />
+        <RadzenAxisTitle Text="# times played" />
+    </RadzenValueAxis>
+    <RadzenLegend Visible="false"/>
+</RadzenChart>
+
+<br />
+<h3>Quizzes by difficulty level</h3>
+<p>The difficulty level of a quiz is dynamically calculated based on the average score.  The difficulty level therefore might change over time.</p>
+<RadzenChart>
+    <RadzenPieSeries Data="@difficultyLevels" CategoryProperty="Difficulty" ValueProperty="Count">
+        <TooltipTemplate Context="data">
+            @if (data.Count == 1)
+            {
+                <div>
+                    @data.Count quiz is currently at level <span>@data.Difficulty.ToLower()</span>.
+                </div>
+            }
+            else
+            {
+                <div>
+                    @data.Count quizzes are currently at level <span>@data.Difficulty.ToLower()</span>.
+                </div>
+            }
+        </TooltipTemplate>
+    </RadzenPieSeries>
+</RadzenChart>
+<br />
+<br />
+
+@code {
+    DataItem[] lastPlayed;
+    PieItem[] difficultyLevels;
+
+    class DataItem
+    {
+        public DateTime Date { get; set; }
+        public int Count { get; set; }
+        public string Name { get; set; }
+    }
+
+    class PieItem
+    {
+        public string Difficulty { get; set; }
+        public int Count { get; set; }
+    }
+
+    protected override void OnInitialized()
+    {
+        var allQuizzes = QuizService.GetQuizMetaData();
+        allQuizzes = allQuizzes.OrderByDescending(x => x.LastPlayed).ToList();
+
+        var dataItems = new List<DataItem>();
+        foreach (var quiz in allQuizzes)
+        {
+            if (quiz.LastPlayed == DateTime.MinValue)
+                continue;
+            var dataItem = new DataItem
+            {
+                Date = quiz.LastPlayed,
+                Count = quiz.NumTimesPlayed,
+                Name = quiz.Title
+            };
+            dataItems.Add(dataItem);
+        }
+        lastPlayed = dataItems.ToArray();
+
+        var pieItems = new List<PieItem>();
+        foreach (var quiz in allQuizzes)
+        {
+            var pieItem = pieItems.SingleOrDefault(x => x.Difficulty == quiz.Difficulty);
+            if (pieItem == null)
+            {
+                pieItem = new PieItem { Difficulty = quiz.Difficulty };
+                pieItems.Add(pieItem);
+            }
+            pieItem.Count++;
+        }
+        difficultyLevels = pieItems.ToArray();
+    }
+}
+
