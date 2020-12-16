@@ -16,6 +16,11 @@ namespace IKWYT.Data
             _database = database;
         }
 
+        public string ConvertToRelativeTime(DateTime date)
+        {
+            return DateHelper.ConvertToRelativeDate(date, firstCharUpper: false);
+        }
+
         // Only for adding new data - comment in button in Quizzes.razor and code for OnChange there to make it work locally
         public void SaveMeta()
         {

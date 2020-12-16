@@ -1,4 +1,5 @@
 ﻿using Repository;
+using System;
 using System.Collections.Generic;
 
 namespace IKWYT.Data
@@ -10,5 +11,6 @@ namespace IKWYT.Data
         double GetAverageScore(string externalReference);
         void SaveScore(string externalReference, int score);
         void SaveMeta();
+        string ConvertToRelativeTime(DateTime date);
     }
 }

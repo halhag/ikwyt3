@@ -10,29 +10,31 @@
 
 <h1><span class="material-icons">info</span>   About</h1>
 <br />
-<p>These quizzes were made for an iPhone app back in 2011-13.  The app was relatively popular and was downloaded in more than a hundred countries, but, since this was just a hobby project, maintenance was not kept up and the app was eventually withdrawn from the App Store when it could not keep up with changing requirements.  This new web site was made during the Corona crisis of 2020.</p>
+<p>These quizzes were made for an iPhone app back in 2011-13.  The app was relatively popular and was downloaded in more than a hundred countries, but, since this was just a hobby project, maintenance was not kept up and the app was eventually withdrawn from the App Store when it could not keep up with changing requirements.  This new web site was made during the Corona crisis of 2020.  If for some reason you want, you can <a href="mailto: ikwyt@altiboxmail.no">contact us at ikwyt@altiboxmail.no</a></p>
 <p>If you are still reading, below is some more useless information made visually appealing.</p>
 <br />
-<h3>Last played</h3>
+
+
+<h3>Most recently played quizzes</h3>
+<p>Shows the 10 most recently played quizzes, when they were last played and how many times they have been played.  The newest on the left.  Talk about a chart trying to do to many things at the same time.</p>
 <RadzenChart>
-    <RadzenLineSeries Smooth="false" Data="@lastPlayed" Title="Last played" CategoryProperty="Date" LineType="LineType.Dotted" ValueProperty="Count">
+    <RadzenColumnSeries Data="@lastPlayed" CategoryProperty="Order" Title="Use tooltip for more info" LineType="LineType.Dashed" ValueProperty="Count">
         <TooltipTemplate Context="data">
             <div>
                 <span>@data.Name</span> has been played @data.Count times and was last played @data.Date
             </div>
         </TooltipTemplate>
-    </RadzenLineSeries>
-    <RadzenCategoryAxis Padding="20" />
+    </RadzenColumnSeries>
+    <RadzenColumnOptions Radius="5" />
     <RadzenValueAxis>
         <RadzenGridLines Visible="true" />
         <RadzenAxisTitle Text="# times played" />
     </RadzenValueAxis>
-    <RadzenLegend Visible="false"/>
 </RadzenChart>
 
 <br />
 <h3>Quizzes by difficulty level</h3>
-<p>The difficulty level of a quiz is dynamically calculated based on the average score.  The difficulty level therefore might change over time.</p>
+<p>The difficulty level of a quiz is dynamically calculated based on the average score.  The difficulty level for a quiz therefore might change over time.  Medium means an average score of about 50%.</p>
 <RadzenChart>
     <RadzenPieSeries Data="@difficultyLevels" CategoryProperty="Difficulty" ValueProperty="Count">
         <TooltipTemplate Context="data">
@@ -60,9 +62,10 @@
 
     class DataItem
     {
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public int Count { get; set; }
         public string Name { get; set; }
+        public int Order { get; set; }
     }
 
     class PieItem
@@ -83,11 +86,14 @@
                 continue;
             var dataItem = new DataItem
             {
-                Date = quiz.LastPlayed,
+                Date = QuizService.ConvertToRelativeTime(quiz.LastPlayed),
                 Count = quiz.NumTimesPlayed,
-                Name = quiz.Title
+                Name = quiz.Title,
+                Order = (dataItems.Count + 1)
             };
             dataItems.Add(dataItem);
+            if (dataItems.Count == 10)
+                break;
         }
         lastPlayed = dataItems.ToArray();
 
