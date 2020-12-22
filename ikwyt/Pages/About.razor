@@ -36,7 +36,7 @@
 <h3>Quizzes by difficulty level</h3>
 <p>The difficulty level of a quiz is dynamically calculated based on the average score.  The difficulty level for a quiz therefore might change over time.  Medium means an average score of about 50%.</p>
 <RadzenChart>
-    <RadzenPieSeries Data="@difficultyLevels" CategoryProperty="Difficulty" ValueProperty="Count">
+    <RadzenDonutSeries Data="@difficultyLevels" CategoryProperty="Difficulty" ValueProperty="Count">
         <TooltipTemplate Context="data">
             @if (data.Count == 1)
             {
@@ -51,7 +51,13 @@
                 </div>
             }
         </TooltipTemplate>
-    </RadzenPieSeries>
+        <TitleTemplate>
+            <div class="rz-donut-content">
+                <div>Mmm,</div>
+                <div>donuts...</div>
+            </div>
+        </TitleTemplate>
+    </RadzenDonutSeries>
 </RadzenChart>
 <br />
 <br />
