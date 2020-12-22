@@ -22,6 +22,19 @@
 {
     <p>@questionPart</p>
 }
+@if (ShowAdditionalText)
+{
+    <RadzenAccordion @ref="accordion">
+        <Items>
+            <RadzenAccordionItem Text="More information about the study">
+                @foreach (var additionalTextPart in AdditionalTextParts)
+                {
+                    <p>@additionalTextPart</p>
+                }
+            </RadzenAccordionItem>
+        </Items>
+    </RadzenAccordion>
+}
 <form>
     <RadzenRadioButtonList @ref="radioButtonList" @bind-Value="SelectedAnswer" TValue="string" Orientation="Orientation.Vertical" Change="@((args) => Change(args, SelectedAnswer))">
         <Items>
@@ -58,21 +71,40 @@
     public string Name { get; set; }
 
     RadzenRadioButtonList<string> radioButtonList;
+    RadzenAccordion accordion;
 
     public Repository.Quiz QuizModel { get; set; }
     public int QuestionNumber = 0;
     public int CorrectAnswers { get; set; }
     public string[] QuestionParts { get; set; }
+    public string[] AdditionalTextParts { get; set; }
     public string SelectedAnswer = string.Empty;
     public string ButtonText = "Submit";
     public List<Alternative> Alternatives = new List<Alternative>();
     public string CorrectAnswer = string.Empty;
     public bool ShowAnswer = false;
     public bool AnswerWasCorrect = false;
+    public bool ShowAdditionalText = false;
 
     private void PrepareQuestion()
     {
         QuestionParts = QuizModel.Questions[QuestionNumber].Text.Split(@"\r\n");
+        if (string.IsNullOrWhiteSpace(QuizModel.Questions[QuestionNumber].AdditionalText))
+        {
+            ShowAdditionalText = false;
+            if (accordion != null)
+            {
+                accordion.Visible = false;
+            }
+        }
+        else {
+            ShowAdditionalText = true;
+            if (accordion != null)
+            {
+                accordion.Visible = true;
+            }
+            AdditionalTextParts = QuizModel.Questions[QuestionNumber].AdditionalText.Split(@"\r\n");
+        }
         Alternatives = QuizModel.Questions[QuestionNumber].Alternatives.OrderBy(x => x.Text).ToList();
         CorrectAnswer = Alternatives.Single(x => x.IsCorrect).Text;
         QuestionNumber++;
