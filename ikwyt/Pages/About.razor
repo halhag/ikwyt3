@@ -11,60 +11,65 @@
 <h1><span class="material-icons">info</span>   About</h1>
 <br />
 <p>These quizzes were made for an iPhone app back in 2011-13.  The app was relatively popular and was downloaded in more than a hundred countries, but, since this was just a hobby project, maintenance was not kept up and the app was eventually withdrawn from the App Store when it could not keep up with changing requirements.  This new web site was made during the Corona crisis of 2020.  If for some reason you want to, you can <a href="mailto: ikwyt@altiboxmail.no">contact us at ikwyt@altiboxmail.no</a></p>
-<p>If you are still reading, below is some more useless information made visually appealing.</p>
+<p>If you are still reading, you can read more if you enter the secret ten character password.  Maybe you can guess it?  It is possible to find somewhere on the web site.</p>
 <br />
+<RadzenPassword @ref="password" Placeholder="Password here ..." Change=@(args => OnChange(args, "Password")) />
 
-
-<h3>Most recently played quizzes</h3>
-<p>Shows the 10 most recently played quizzes, when they were last played and how many times they have been played.  The newest on the left.  Talk about a chart trying to do to many things at the same time.</p>
-<RadzenChart>
-    <RadzenColumnSeries Data="@lastPlayed" CategoryProperty="Order" Title="Use tooltip for more info" LineType="LineType.Dashed" ValueProperty="Count">
-        <TooltipTemplate Context="data">
-            <div>
-                <span>@data.Name</span> has been played @data.Count times and was last played @data.Date
-            </div>
-        </TooltipTemplate>
-    </RadzenColumnSeries>
-    <RadzenColumnOptions Radius="5" />
-    <RadzenValueAxis>
-        <RadzenGridLines Visible="true" />
-        <RadzenAxisTitle Text="# times played" />
-    </RadzenValueAxis>
-</RadzenChart>
-
-<br />
-<h3>Quizzes by difficulty level</h3>
-<p>The difficulty level of a quiz is dynamically calculated based on the average score.  The difficulty level for a quiz therefore might change over time.  Medium means an average score of about 50%.</p>
-<RadzenChart>
-    <RadzenDonutSeries Data="@difficultyLevels" CategoryProperty="Difficulty" ValueProperty="Count">
-        <TooltipTemplate Context="data">
-            @if (data.Count == 1)
-            {
+@if (ShowSecret)
+{ 
+    <h3>Most recently played quizzes</h3>
+    <p>Shows the 10 most recently played quizzes, when they were last played and how many times they have been played.  The newest on the left.  Talk about a chart trying to do to many things at the same time.</p>
+    <RadzenChart>
+        <RadzenColumnSeries Data="@lastPlayed" CategoryProperty="Order" Title="Use tooltip for more info" LineType="LineType.Dashed" ValueProperty="Count">
+            <TooltipTemplate Context="data">
                 <div>
-                    @data.Count quiz is currently at level <span>@data.Difficulty.ToLower()</span>.
+                    <span>@data.Name</span> has been played @data.Count times and was last played @data.Date
                 </div>
-            }
-            else
-            {
-                <div>
-                    @data.Count quizzes are currently at level <span>@data.Difficulty.ToLower()</span>.
+            </TooltipTemplate>
+        </RadzenColumnSeries>
+        <RadzenColumnOptions Radius="5" />
+        <RadzenValueAxis>
+            <RadzenGridLines Visible="true" />
+            <RadzenAxisTitle Text="# times played" />
+        </RadzenValueAxis>
+    </RadzenChart>
+
+    <br />
+    <h3>Quizzes by difficulty level</h3>
+    <p>The difficulty level of a quiz is dynamically calculated based on the average score.  The difficulty level for a quiz therefore might change over time.  Medium means an average score of about 50%.</p>
+    <RadzenChart>
+        <RadzenDonutSeries Data="@difficultyLevels" CategoryProperty="Difficulty" ValueProperty="Count">
+            <TooltipTemplate Context="data">
+                @if (data.Count == 1)
+                {
+                    <div>
+                        @data.Count quiz is currently at level <span>@data.Difficulty.ToLower()</span>.
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        @data.Count quizzes are currently at level <span>@data.Difficulty.ToLower()</span>.
+                    </div>
+                }
+            </TooltipTemplate>
+            <TitleTemplate>
+                <div class="rz-donut-content">
+                    <div>Mmm,</div>
+                    <div>donuts...</div>
                 </div>
-            }
-        </TooltipTemplate>
-        <TitleTemplate>
-            <div class="rz-donut-content">
-                <div>Mmm,</div>
-                <div>donuts...</div>
-            </div>
-        </TitleTemplate>
-    </RadzenDonutSeries>
-</RadzenChart>
+            </TitleTemplate>
+        </RadzenDonutSeries>
+    </RadzenChart>
+}
 <br />
 <br />
 
 @code {
     DataItem[] lastPlayed;
     PieItem[] difficultyLevels;
+    bool ShowSecret = false;
+    RadzenPassword password;
 
     class DataItem
     {
@@ -78,6 +83,15 @@
     {
         public string Difficulty { get; set; }
         public int Count { get; set; }
+    }
+
+    void OnChange(string value, string name)
+    {
+        if (value.ToLower() == "hwpbebdmaa")
+        {
+            ShowSecret = true;
+            password.Visible = false;
+        }
     }
 
     protected override void OnInitialized()
