@@ -29,7 +29,7 @@
             <RadzenAccordionItem Text="More information about the study">
                 @foreach (var additionalTextPart in AdditionalTextParts)
                 {
-                    <p>@additionalTextPart</p>
+                <p>@((MarkupString)@additionalTextPart)</p>
                 }
             </RadzenAccordionItem>
         </Items>
