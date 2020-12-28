@@ -4,6 +4,7 @@
 @using Repository
 @using Toolbelt.Blazor.HeadElement
 @inject IQuizService QuizService
+@inject NavigationManager NavigationManager
 
 <Title>IKWYT - Behavioral Economics</Title>
 
@@ -78,6 +79,9 @@
 </RadzenGrid>
 <br />
 <br />
+<RadzenButton Text="Show me all quizzes!" Click="@OnSubmit"></RadzenButton>
+<br />
+<br />
 
 
 @code {
@@ -105,5 +109,10 @@
         quizzesOthers = new List<QuizMetaData>();
         quizzesOthers.Add(allQuizzes.Single(x => x.ExternalReference == "Revenge"));
         quizzesOthers.Add(allQuizzes.Single(x => x.ExternalReference == "Rewards Punishment Happiness"));
+    }
+
+    public void OnSubmit()
+    {
+        NavigationManager.NavigateTo("/Quizzes");
     }
 }

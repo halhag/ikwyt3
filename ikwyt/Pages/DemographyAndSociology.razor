@@ -4,6 +4,7 @@
 @using Repository
 @using Toolbelt.Blazor.HeadElement
 @inject IQuizService QuizService
+@inject NavigationManager NavigationManager
 
 <Title>IKWYT - Demography and Sociology</Title>
 
@@ -57,6 +58,9 @@
 </RadzenGrid>
 <br />
 <br />
+<RadzenButton Text="Show me all quizzes!" Click="@OnSubmit"></RadzenButton>
+<br />
+<br />
 
 
 @code {
@@ -81,5 +85,10 @@
         quizzesSociology.Add(allQuizzes.Single(x => x.ExternalReference == "US Trends"));
         quizzesSociology.Add(allQuizzes.Single(x => x.ExternalReference == "US Trends II"));
         quizzesSociology.Add(allQuizzes.Single(x => x.ExternalReference == "School Life II"));
+    }
+
+    public void OnSubmit()
+    {
+        NavigationManager.NavigateTo("/Quizzes");
     }
 }

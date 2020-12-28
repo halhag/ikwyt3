@@ -3,8 +3,8 @@
 @using IKWYT.Data
 @using Repository
 @using Toolbelt.Blazor.HeadElement
-
 @inject IQuizService QuizService
+@inject NavigationManager NavigationManager
 
 <Title>IKWYT - Mix</Title>
 
@@ -34,6 +34,9 @@
 </RadzenGrid>
 <br />
 <br />
+<RadzenButton Text="Show me all quizzes!" Click="@OnSubmit"></RadzenButton>
+<br />
+<br />
 
 
 @code {
@@ -50,5 +53,10 @@
         quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "New Research 2013"));
         quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Odds and Ends"));
         quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Odds and Ends II"));
+    }
+
+    public void OnSubmit()
+    {
+        NavigationManager.NavigateTo("/Quizzes");
     }
 }

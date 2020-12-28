@@ -4,6 +4,7 @@
 @using Repository
 @using Toolbelt.Blazor.HeadElement
 @inject IQuizService QuizService
+@inject NavigationManager NavigationManager
 
 <Title>IKWYT - Psychology</Title>
 
@@ -97,6 +98,9 @@
 </RadzenGrid>
 <br />
 <br />
+<RadzenButton Text="Show me all quizzes!" Click="@OnSubmit"></RadzenButton>
+<br />
+<br />
 
 
 @code {
@@ -135,5 +139,10 @@
         quizzesOthers.Add(allQuizzes.Single(x => x.ExternalReference == "Thinking"));
         quizzesOthers.Add(allQuizzes.Single(x => x.ExternalReference == "Obedience"));
         quizzesOthers.Add(allQuizzes.Single(x => x.ExternalReference == "School Life"));
+    }
+
+    public void OnSubmit()
+    {
+        NavigationManager.NavigateTo("/Quizzes");
     }
 }

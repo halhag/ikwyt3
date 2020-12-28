@@ -4,7 +4,6 @@
 @using Repository
 @using Toolbelt.Blazor.HeadElement
 @inject IQuizService QuizService
-
 @inject NavigationManager NavigationManager
 
 <Title>IKWYT - Warmup</Title>
@@ -36,6 +35,9 @@
 </RadzenGrid>
 <br />
 <br />
+<RadzenButton Text="Show me all quizzes!" Click="@OnSubmit"></RadzenButton>
+<br />
+<br />
 
 
 @code {
@@ -52,5 +54,10 @@
         quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Easy Warmup"));
         quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Famous Experiments"));
         quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Pain Torture Death"));
+    }
+
+    public void OnSubmit()
+    {
+        NavigationManager.NavigateTo("/Quizzes");
     }
 }

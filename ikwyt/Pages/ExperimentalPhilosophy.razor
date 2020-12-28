@@ -4,6 +4,7 @@
 @using Repository
 @using Toolbelt.Blazor.HeadElement
 @inject IQuizService QuizService
+@inject NavigationManager NavigationManager
 
 <Title>IKWYT - Experimental Philosophy</Title>
 
@@ -33,6 +34,9 @@
 </RadzenGrid>
 <br />
 <br />
+<RadzenButton Text="Show me all quizzes!" Click="@OnSubmit"></RadzenButton>
+<br />
+<br />
 
 
 @code {
@@ -47,5 +51,10 @@
         quizzes = new List<QuizMetaData>();
         quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Pain Torture Death"));
         quizzes.Add(allQuizzes.Single(x => x.ExternalReference == "Tough Moral Choices"));
+    }
+
+    public void OnSubmit()
+    {
+        NavigationManager.NavigateTo("/Quizzes");
     }
 }
