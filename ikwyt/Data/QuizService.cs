@@ -125,7 +125,7 @@ namespace IKWYT.Data
             }
 
             var difficulty = averageScore / quiz.NumQuestions;
-            if (difficulty < 0.25)
+            if (difficulty < 0.33)
             {
                 return new Difficulty
                 {
@@ -134,7 +134,7 @@ namespace IKWYT.Data
                     UnderlyingValue = difficulty
                 };
             }
-            if (difficulty >= 0.25 && difficulty < 0.4)
+            if (difficulty >= 0.33 && difficulty < 0.42)
             {
                 return new Difficulty 
                 {
@@ -143,7 +143,7 @@ namespace IKWYT.Data
                     UnderlyingValue = difficulty
                 };
             }
-            if (difficulty >= 0.4 && difficulty < 0.6)
+            if (difficulty >= 0.42 && difficulty < 0.58)
             {
                 return new Difficulty
                 {
@@ -152,7 +152,7 @@ namespace IKWYT.Data
                     UnderlyingValue = difficulty
                 };
             }
-            if (difficulty >= 0.6 && difficulty < 0.75)
+            if (difficulty >= 0.58 && difficulty < 0.67)
             {
                 return new Difficulty
                 {
@@ -161,7 +161,7 @@ namespace IKWYT.Data
                     UnderlyingValue = difficulty
                 };
             }
-            if (difficulty >= 0.75)
+            if (difficulty >= 0.67)
             {
                 return new Difficulty
                 {
